@@ -1,16 +1,24 @@
-import { StarOutlined } from "@ant-design/icons";
 import { Card } from "antd";
 import Meta from "antd/es/card/Meta";
+import { useDispatch } from "react-redux";
+import { setFavorite } from "../actions";
+import { StarButton } from "./StarButton";
 
-const PokemonCart = ({ name, image, abilities }) => {
+const PokemonCart = ({ id, name, image, abilities, types, favorite }) => {
+  const dispatch = useDispatch();
+  const typeString = types.map((element) => element.type.name).join(", ");
   const pokemonAbilities = abilities.map((abilityPokemon) => {
     return (
       <li key={abilityPokemon.ability.name}>{abilityPokemon.ability.name}</li>
     );
   });
+
+  const handleOnFavorite = () => {
+    dispatch(setFavorite({ pokemonId: id }));
+  };
   return (
     <Card
-      style={{textTransform:'capitalize'}}
+      style={{ textTransform: "capitalize" }}
       title={name}
       cover={
         <img
@@ -24,13 +32,15 @@ const PokemonCart = ({ name, image, abilities }) => {
           alt={name}
         />
       }
-      extra={<StarOutlined />}
+      extra={<StarButton isFavorite={favorite} onClick={handleOnFavorite} />}
     >
       <Meta
         description={
           <>
+            <h5>Types</h5>
+            <p>{typeString}</p>
             <h5>Abilities</h5>
-            <ul style={{textTransform:'capitalize'}}>{pokemonAbilities}</ul>
+            <ul style={{ textTransform: "capitalize" }}>{pokemonAbilities}</ul>
           </>
         }
       />

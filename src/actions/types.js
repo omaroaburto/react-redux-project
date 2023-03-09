@@ -1,5 +1,9 @@
-const  SET_POKEMONS = 'SET_POKEMONS';
+const SET_POKEMONS = "SET_POKEMONS";
+const SET_LOADING = "SET_LOADING";
+const SET_FAVORITE = "SET_FAVORITE";
 
-export{
-    SET_POKEMONS
-}
+export { 
+    SET_POKEMONS, 
+    SET_LOADING, 
+    SET_FAVORITE 
+};
